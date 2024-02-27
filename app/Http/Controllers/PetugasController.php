@@ -15,7 +15,7 @@ class PetugasController extends Controller
     {
         $order = $request->input('order', "nama");
         $sort = $request->input('sort', "asc");
-        $petugass = Petugas::orderBy($order, $sort)->get();
+        $petugass = Petugas::latest()->orderBy($order, $sort)->get();
         return response()->json($petugass);
     }
 
@@ -36,9 +36,20 @@ class PetugasController extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show(string $id)
+    // {
+    //     $petugass = Petugas::find($id);
+    //     if(!$petugass) {
+    //         return response()->json(['message' => 'Petugas tidak ditemukan'], 404);
+    //     }
+    //     return response()->json($petugass);
+    // }
+
     public function show(string $id)
     {
-        $petugass = Petugas::find($id);
+        $petugas = Petugas::find($id);
+        $petugass = $petugas->anggotas;
+
         if(!$petugass) {
             return response()->json(['message' => 'Petugas tidak ditemukan'], 404);
         }

@@ -10,4 +10,12 @@ class Petugas extends Model
     use HasFactory;
     protected $table = 'petugass';
     protected $fillable = ['kode', 'nama', 'email'];
+
+    public function anggotas() {
+        return $this->hasMany(Anggota::class);
+    }
+
+    public function bukus() {
+        return $this->hasMany(Buku::class);
+    }
 }
